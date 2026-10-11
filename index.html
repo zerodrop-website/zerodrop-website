@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="ro" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZeroDrop — FPS Stabil &amp; Fără Dropuri în Lupte | Latență Minimă</title>
+  <meta name="description" content="Softul #1 pentru gaming pe Windows. Zero dropuri de FPS, latență minimă la mouse (0.5ms), optimizare conexiune fără ping și performanță maximă a procesorului.">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brandDark: '#07090E',
+            cardDark: '#0D121D',
+            cardBorder: '#1A2336',
+            neonGreen: '#10B981',
+            neonGreenLight: '#34D399',
+            accentGlow: '#059669'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background-color: #07090E; color: #E2E8F0; font-family: 'Plus Jakarta Sans', sans-serif; }
+    .hero-glow {
+      background: radial-gradient(circle at 50% 20%, rgba(16, 185, 129, 0.16) 0%, rgba(7, 9, 14, 0) 70%);
+    }
+    .glow-border:hover {
+      box-shadow: 0 0 25px rgba(16, 185, 129, 0.2);
+    }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #07090E; }
+    ::-webkit-scrollbar-thumb { background: #1A2336; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #10B981; }
+  </style>
+</head>
+<body class="selection:bg-emerald-500 selection:text-black antialiased">
+
+  <!-- TOP PROMO & COUNTDOWN BAR -->
+  <div class="border-b border-cardBorder bg-[#0A0E18] py-2 px-4 text-xs font-medium sticky top-0 z-50 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="flex h-2 w-2 rounded-full bg-emerald-400 animate-ping"></span>
+        <span class="text-slate-300 font-mono text-[11px]" data-i18n="topBar">⚡ OFERTĂ LANSARE: -40% REDUCERE LA LICENȚELE PRO</span>
+        <span class="hidden sm:inline-block px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-[10px] font-bold" id="countdownTimer">02:44:18</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="text-slate-400 text-[11px] hidden md:inline" data-i18n="topFree">🎁 Modul DEMO Gratuit este inclus</span>
+        <div class="flex items-center bg-[#141B29] p-0.5 rounded border border-cardBorder">
+          <button id="btnLangRo" onclick="setLang('ro')" class="px-2 py-0.5 text-xs font-bold rounded text-slate-400 hover:text-white">RO</button>
+          <button id="btnLangEn" onclick="setLang('en')" class="px-2 py-0.5 text-xs font-bold rounded bg-emerald-500 text-black">EN</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <header class="border-b border-cardBorder bg-brandDark/90 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg>
+        </div>
+        <div>
+          <span class="font-black text-lg tracking-tight text-white font-mono">ZERO<span class="text-emerald-400">DROP</span></span>
+        </div>
+      </div>
+
+      <nav class="hidden lg:flex items-center gap-6 text-xs font-bold uppercase tracking-wider text-slate-300">
+        <a href="#games" class="hover:text-emerald-400 transition" data-i18n="navGames">Jocuri Suportate</a>
+        <a href="#preview" class="hover:text-emerald-400 transition" data-i18n="navPreview">Aplicația ZeroDrop</a>
+        <a href="#features" class="hover:text-emerald-400 transition" data-i18n="navFeatures">Ce Rezolvă</a>
+        <a href="#comparison" class="hover:text-emerald-400 transition" data-i18n="navCompare">Comparație FPS</a>
+        <a href="#security" class="hover:text-emerald-400 transition" data-i18n="navSecurity">Siguranță &amp; Restore</a>
+        <a href="#faq" class="hover:text-emerald-400 transition" data-i18n="navFaq">FAQ</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="#pricing" class="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-xs uppercase tracking-wider transition shadow-lg shadow-emerald-500/20" data-i18n="navCta">
+          Descarcă / Cumpără
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="relative pt-16 pb-20 hero-glow overflow-hidden">
+    <div class="max-w-5xl mx-auto px-4 text-center">
+
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-xs font-bold mb-6">
+        <span data-i18n="heroBadge">⚡ VERSIUNEA NOUĂ 1.3 DISPONIBILĂ PENTRU GAMING</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-tight leading-[1.15] mb-6" data-i18n="heroTitle">
+        FPS Stabil &amp; Fără Dropuri în Lupte.<br>
+        <span class="text-emerald-400">Latență Mouse &amp; Răspuns Instant.</span>
+      </h1>
+
+      <p class="max-w-2xl mx-auto text-sm sm:text-base text-slate-400 mb-10 leading-relaxed font-medium" data-i18n="heroDesc">
+        Windows vine din fabrică plin de procese de fundal care îți agăță jocul exact când tragi cu arma. <strong>ZeroDrop</strong> elimină căderile de cadre, reduce latența la mouse la 0.5ms și deblochează toată puterea procesorului tău.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+        <a href="#pricing" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-black text-sm tracking-wide transition shadow-xl shadow-emerald-500/25 flex items-center justify-center gap-3">
+          <span data-i18n="heroCtaPro">🚀 Deblochează Pachetul PRO (14.99 €)</span>
+        </a>
+        <button onclick="handleDownloadOrMobile()" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-[#121824] border border-cardBorder hover:border-emerald-500/50 text-white font-bold text-sm transition flex items-center justify-center gap-2">
+          <span data-i18n="heroCtaFree">🎁 Descarcă DEMO Gratuit (0 €)</span>
+        </button>
+      </div>
+
+      <!-- INTERACTIVE SOFTWARE MOCKUP PREVIEW -->
+      <div id="preview" class="max-w-4xl mx-auto rounded-xl bg-[#090D15] border border-cardBorder shadow-2xl overflow-hidden text-left">
+        <!-- Mockup Header Window -->
+        <div class="bg-[#0C1018] px-4 py-3 border-b border-cardBorder flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="flex gap-1.5">
+              <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-yellow-500/80 inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
+            </div>
+            <span class="text-xs font-mono font-bold text-slate-300 ml-2">ZeroDrop — Gaming Performance Suite</span>
+          </div>
+          <span class="text-[11px] font-mono px-2 py-0.5 bg-emerald-500/10 text-emerald-400 rounded border border-emerald-500/20 font-bold" data-i18n="mockHardware">
+            🟢 HARDWARE CONECTAT: 0.500 ms LOCKED
+          </span>
+        </div>
+
+        <!-- Mockup Content Grid -->
+        <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-4 bg-[#0A0E17]">
+          <!-- Box 1: Mouse Latency -->
+          <div class="p-4 rounded-lg bg-[#0F1422] border border-cardBorder">
+            <div class="flex justify-between items-start mb-2">
+              <span class="text-xs font-bold text-white" data-i18n="mockB1Title">Latență Mouse &amp; Răspuns</span>
+              <span class="text-[10px] font-mono bg-emerald-500 text-black px-1.5 py-0.5 rounded font-extrabold">0.5 ms</span>
+            </div>
+            <p class="text-[11px] text-slate-400" data-i18n="mockB1Desc">Timere calibrate, accelerare mouse dezactivată, GameDVR oprit.</p>
+            <div class="mt-3 flex items-center justify-between text-xs font-mono text-emerald-400">
+              <span data-i18n="mockB1Raw">Raw Input 1:1</span>
+              <span data-i18n="mockActive">ACTIV</span>
+            </div>
+          </div>
+
+          <!-- Box 2: CPU Power -->
+          <div class="p-4 rounded-lg bg-[#0F1422] border border-cardBorder">
+            <div class="flex justify-between items-start mb-2">
+              <span class="text-xs font-bold text-white" data-i18n="mockB2Title">Performanță Procesor</span>
+              <span class="text-[10px] font-mono bg-emerald-500 text-black px-1.5 py-0.5 rounded font-extrabold">MAX</span>
+            </div>
+            <p class="text-[11px] text-slate-400" data-i18n="mockB2Desc">Plan Ultimate activat, core-parking oprit, fără throttling în joc.</p>
+            <div class="mt-3 flex items-center justify-between text-xs font-mono text-emerald-400">
+              <span data-i18n="mockB2Freq">Frecvență Stabilă</span>
+              <span data-i18n="mockActive">ACTIV</span>
+            </div>
+          </div>
+
+          <!-- Box 3: Network & Ping -->
+          <div class="p-4 rounded-lg bg-[#0F1422] border border-cardBorder">
+            <div class="flex justify-between items-start mb-2">
+              <span class="text-xs font-bold text-white" data-i18n="mockB3Title">Optimizare Conexiune</span>
+              <span class="text-[10px] font-mono bg-emerald-500 text-black px-1.5 py-0.5 rounded font-extrabold">LOW PING</span>
+            </div>
+            <p class="text-[11px] text-slate-400" data-i18n="mockB3Desc">Algoritmul Nagle oprit, flush cache DNS, fără spikes de latență.</p>
+            <div class="mt-3 flex items-center justify-between text-xs font-mono text-emerald-400">
+              <span>TCP NoDelay</span>
+              <span data-i18n="mockActive">ACTIV</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="px-6 py-3 bg-[#080B12] border-t border-cardBorder flex items-center justify-between text-xs text-slate-400 font-mono">
+          <span data-i18n="mockRestore">🛡️ Restore Point: Creat automat înainte de modificări</span>
+          <span class="text-slate-500">ZeroDrop Engine v1.3</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SUPPORTED GAMES & REAL BENCHMARKS SECTION -->
+  <section id="games" class="py-20 border-y border-cardBorder bg-[#0A0D15]">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-14">
+        <span class="text-emerald-400 font-mono text-xs font-bold uppercase tracking-widest" data-i18n="gamesTag">TESTATE PE JOCURI REALE</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-white mt-1" data-i18n="gamesMainTitle">Unde se simte cel mai mult diferența?</h2>
+        <p class="text-slate-400 text-sm mt-2 font-medium" data-i18n="gamesMainSubtitle">Nu promitem cifre inventate. Iată exact ce rezolvă ZeroDrop în titlurile competitive:</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Game 1: FiveM / GTA V -->
+        <div class="p-6 rounded-xl bg-cardDark border border-cardBorder hover:border-emerald-500/40 transition">
+          <div class="flex items-center justify-between mb-4">
+            <span class="font-extrabold text-white text-base">FiveM (GTA RP)</span>
+            <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-mono text-xs font-bold">+45-60% 1% Lows</span>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed font-medium mb-4" data-i18n="gFiveMDesc">
+            Elimină agățatul la încărcarea hărții și dropurile mari de FPS când conduci cu viteză prin zone populate sau în schimburi de focuri. Flush-ul de Standby RAM previne umplerea memoriei după 2 ore de joc.
+          </p>
+          <div class="text-[11px] font-mono text-slate-500 flex items-center gap-1.5">
+            <span class="text-emerald-400">✓</span> <span data-i18n="gFiveMFix">Texture stream stabil &amp; fără crash</span>
+          </div>
+        </div>
+
+        <!-- Game 2: CS2 -->
+        <div class="p-6 rounded-xl bg-cardDark border border-cardBorder hover:border-emerald-500/40 transition">
+          <div class="flex items-center justify-between mb-4">
+            <span class="font-extrabold text-white text-base">Counter-Strike 2</span>
+            <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-mono text-xs font-bold">0.5ms Click Latency</span>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed font-medium mb-4" data-i18n="gCS2Desc">
+            Testat etalon pe harta <strong>FPS Benchmark Dust2</strong>. Elimina micro-stuttering-ul când tragi prima salvă cu AK-47 sau când intri în smoke. Timerele 0.5ms oferă tragere la țintă fără nicio întârziere perceptibilă.
+          </p>
+          <div class="text-[11px] font-mono text-slate-500 flex items-center gap-1.5">
+            <span class="text-emerald-400">✓</span> <span data-i18n="gCS2Fix">Sub-tick curat &amp; Raw Input 1:1</span>
+          </div>
+        </div>
+
+        <!-- Game 3: Fortnite -->
+        <div class="p-6 rounded-xl bg-cardDark border border-cardBorder hover:border-emerald-500/40 transition">
+          <div class="flex items-center justify-between mb-4">
+            <span class="font-extrabold text-white text-base">Fortnite</span>
+            <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-mono text-xs font-bold">Fără Drop la Aterizare</span>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed font-medium mb-4" data-i18n="gFortDesc">
+            Gata cu scăderea la 40 FPS când cobori din Battle Bus sau când construiești rapid în box-fights. Planul de alimentare Ultimate forțează frecvența procesorului să rămână blocată la maxim.
+          </p>
+          <div class="text-[11px] font-mono text-slate-500 flex items-center gap-1.5">
+            <span class="text-emerald-400">✓</span> <span data-i18n="gFortFix">Zero freeze la edituri rapide</span>
+          </div>
+        </div>
+
+        <!-- Game 4: Valorant -->
+        <div class="p-6 rounded-xl bg-cardDark border border-cardBorder hover:border-emerald-500/40 transition">
+          <div class="flex items-center justify-between mb-4">
+            <span class="font-extrabold text-white text-base">Valorant</span>
+            <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-mono text-xs font-bold">Vanguard Safe</span>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed font-medium mb-4" data-i18n="gValDesc">
+            Elimină conflictele dintre serviciile Windows și driverul Riot Vanguard. Optimizează procesorul pentru timpi de reacție la peek fără nicio abatere de cadre.
+          </p>
+          <div class="text-[11px] font-mono text-slate-500 flex items-center gap-1.5">
+            <span class="text-emerald-400">✓</span> <span data-i18n="gValFix">100% sigur pe anti-cheat</span>
+          </div>
+        </div>
+
+        <!-- Game 5: CoD Warzone -->
+        <div class="p-6 rounded-xl bg-cardDark border border-cardBorder hover:border-emerald-500/40 transition">
+          <div class="flex items-center justify-between mb-4">
+            <span class="font-extrabold text-white text-base">CoD: Warzone</span>
+            <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-mono text-xs font-bold">No Memory Leak</span>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed font-medium mb-4" data-i18n="gWarzoneDesc">
+            Rezolvă problema clasică a Warzone-ului: consumul excesiv de VRAM și Standby RAM care sufocă Windows-ul după 3 meciuri consecutive.
+          </p>
+          <div class="text-[11px] font-mono text-slate-500 flex items-center gap-1.5">
+            <span class="text-emerald-400">✓</span> <span data-i18n="gWarzoneFix">Flush automat memorie inactivă</span>
+          </div>
+        </div>
+
+        <!-- Game 6: Apex Legends & PUBG -->
+        <div class="p-6 rounded-xl bg-cardDark border border-cardBorder hover:border-emerald-500/40 transition">
+          <div class="flex items-center justify-between mb-4">
+            <span class="font-extrabold text-white text-base">Apex &amp; PUBG</span>
+            <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-mono text-xs font-bold">Low TCP Jitter</span>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed font-medium mb-4" data-i18n="gApexDesc">
+            Bypass la algoritmul Nagle din stiva de rețea. Pachetele mici de poziție și gloanțe sunt trimise fără buffering, stabilizând ping-ul pe serverele din Germania/UK.
+          </p>
+          <div class="text-[11px] font-mono text-slate-500 flex items-center gap-1.5">
+            <span class="text-emerald-400">✓</span> <span data-i18n="gApexFix">Elimină ping spikes &amp; packet drop</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 PILLARS SECTION -->
+  <section id="features" class="py-20 max-w-5xl mx-auto px-4">
+    <div class="text-center mb-14">
+      <h2 class="text-2xl sm:text-4xl font-extrabold text-white" data-i18n="featMainTitle">Cum transformă ZeroDrop calculatorul tău</h2>
+      <p class="text-slate-400 text-sm mt-2 font-medium" data-i18n="featMainSubtitle">Modificări gândite special pentru jucătorii de CS2, Fortnite, FiveM, Valorant și Warzone.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+      <!-- Pillar 1 -->
+      <div class="p-6 rounded-xl bg-cardDark border border-cardBorder hover:border-emerald-500/40 transition">
+        <div class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-lg mb-4 font-bold">
+          🎯
+        </div>
+        <h3 class="text-lg font-bold text-white mb-2" data-i18n="p1Title">Latență Mouse &amp; Răspuns Instant</h3>
+        <p class="text-sm text-slate-400 leading-relaxed font-medium" data-i18n="p1Desc">
+          Forțează timerele hardware Windows la 0.5ms (în loc de 1.0 sau 15ms), elimină accelerarea ascunsă din sistem și oprește GameDVR. Când apeși click sau miști mouse-ul, glonțul pleacă instant fără întârziere.
+        </p>
+      </div>
+
+      <!-- Pillar 2 -->
+      <div class="p-6 rounded-xl bg-cardDark border border-cardBorder hover:border-emerald-500/40 transition">
+        <div class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-lg mb-4 font-bold">
+          🧹
+        </div>
+        <h3 class="text-lg font-bold text-white mb-2" data-i18n="p2Title">Curățare Windows &amp; Oprirea Proceselor din Fundal</h3>
+        <p class="text-sm text-slate-400 leading-relaxed font-medium" data-i18n="p2Desc">
+          Oprește peste 30 de servicii inutile de telemetrie Microsoft (DiagTrack, Cortana, indexare de fundal) care se bat pe nucleele procesorului tău în mijlocul meciului. Eliberează între 500 MB și 1.5 GB de RAM.
+        </p>
+      </div>
+
+      <!-- Pillar 3 -->
+      <div class="p-6 rounded-xl bg-cardDark border border-cardBorder hover:border-emerald-500/40 transition">
+        <div class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-lg mb-4 font-bold">
+          🌐
+        </div>
+        <h3 class="text-lg font-bold text-white mb-2" data-i18n="p3Title">Optimizare Conexiune &amp; Fără Ping</h3>
+        <p class="text-sm text-slate-400 leading-relaxed font-medium" data-i18n="p3Desc">
+          Dezactivează algoritmul Nagle din Windows, care ține pe loc pachetele mici de rețea. Datele tale pleacă direct către serverul de joc, eliminând căderile de conexiune și spikes-urile de ping.
+        </p>
+      </div>
+
+      <!-- Pillar 4 -->
+      <div class="p-6 rounded-xl bg-cardDark border border-cardBorder hover:border-emerald-500/40 transition">
+        <div class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-lg mb-4 font-bold">
+          ⚡
+        </div>
+        <h3 class="text-lg font-bold text-white mb-2" data-i18n="p4Title">Performanță Maximă a Procesorului</h3>
+        <p class="text-sm text-slate-400 leading-relaxed font-medium" data-i18n="p4Desc">
+          Deblochează profilul ascuns Ultimate Performance și oprește core-parking-ul. Procesorul tău nu își mai scade frecvența în timpul acțiunii intense, prevenind căderile bruște de cadre.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FPS COMPARISON -->
+  <section id="comparison" class="py-20 border-t border-cardBorder bg-[#0A0D15]">
+    <div class="max-w-5xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-white" data-i18n="compTitle">FPS Stabil &amp; Fără Dropuri în Lupte</h2>
+        <p class="text-slate-400 text-sm mt-2 font-medium" data-i18n="compSubtitle">Vezi diferența reală de stabilitate pe un PC mediu (Ryzen 5 + RTX 3060 în CS2 &amp; Fortnite):</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <!-- Standard Windows -->
+        <div class="p-6 rounded-xl bg-cardDark border border-red-500/30">
+          <div class="flex justify-between items-center mb-4">
+            <span class="text-xs font-mono font-bold text-red-400 uppercase" data-i18n="compBeforeTitle">WINDOWS STANDARD (FABRICĂ)</span>
+            <span class="text-[10px] font-mono text-slate-500">Timer: 1.0ms</span>
+          </div>
+          <div class="space-y-4 font-mono text-xs">
+            <div>
+              <div class="flex justify-between text-slate-400 mb-1">
+                <span data-i18n="compAvgFps">Cadre Medii</span>
+                <span class="text-white">190 FPS</span>
+              </div>
+              <div class="w-full bg-[#182030] h-2.5 rounded"><div class="bg-slate-400 h-2.5 rounded" style="width: 70%;"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-red-400 font-bold mb-1">
+                <span data-i18n="compDrops">Căderi în Luptă (Dropuri)</span>
+                <span data-i18n="compDropsVal">65 FPS (Agăța)</span>
+              </div>
+              <div class="w-full bg-[#182030] h-2.5 rounded"><div class="bg-red-500 h-2.5 rounded" style="width: 35%;"></div></div>
+            </div>
+          </div>
+          <p class="mt-5 text-xs text-slate-400 leading-relaxed font-sans" data-i18n="compBeforeNote">
+            Când arunci o grenadă sau tragi cu arma, telemetria din Windows consumă procesorul și simți acel agățat frustrant.
+          </p>
+        </div>
+
+        <!-- ZeroDrop -->
+        <div class="p-6 rounded-xl bg-[#0D1524] border-2 border-emerald-500/70 shadow-lg shadow-emerald-500/10">
+          <div class="flex justify-between items-center mb-4">
+            <span class="text-xs font-mono font-bold text-emerald-400 uppercase" data-i18n="compAfterTitle">ZERODROP PROFIL ACTIV</span>
+            <span class="text-[10px] font-mono text-emerald-400">Timer: 0.5ms Locked</span>
+          </div>
+          <div class="space-y-4 font-mono text-xs">
+            <div>
+              <div class="flex justify-between text-slate-300 mb-1">
+                <span data-i18n="compAvgFps">Cadre Medii</span>
+                <span class="text-emerald-400 font-bold">245 FPS (+55 FPS)</span>
+              </div>
+              <div class="w-full bg-[#182030] h-2.5 rounded"><div class="bg-emerald-500 h-2.5 rounded" style="width: 90%;"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-emerald-400 font-bold mb-1">
+                <span data-i18n="compStability">Stabilitate în Luptă</span>
+                <span data-i18n="compStabilityVal">140 FPS (Linie Dreaptă)</span>
+              </div>
+              <div class="w-full bg-[#182030] h-2.5 rounded"><div class="bg-emerald-500 h-2.5 rounded" style="width: 78%;"></div></div>
+            </div>
+          </div>
+          <p class="mt-5 text-xs text-slate-300 leading-relaxed font-sans" data-i18n="compAfterNote">
+            Frame-time-ul devine o linie dreaptă. Zero micro-stutter, iar mouse-ul răspunde instant la fiecare milimetru de mișcare.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECURITY & TRANSPARENCY GUARANTEE SECTION -->
+  <section id="security" class="py-20 border-t border-cardBorder bg-[#080B13]">
+    <div class="max-w-5xl mx-auto px-4">
+      <div class="text-center mb-14">
+        <span class="text-emerald-400 font-mono text-xs font-bold uppercase tracking-widest" data-i18n="secTag">100% SIGUR &amp; REVERSIBIL</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-white mt-1" data-i18n="secTitle">De ce ZeroDrop este complet sigur pentru PC</h2>
+        <p class="text-slate-400 text-sm mt-2 font-medium" data-i18n="secSubtitle">Nu lăsa pe nimeni să-ți umble în calculator prin AnyDesk. Ai control total și siguranță absolută.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- Card 1: Restore Point -->
+        <div class="p-6 rounded-xl bg-cardDark border border-cardBorder">
+          <div class="text-2xl mb-3">🛡️</div>
+          <h3 class="text-base font-bold text-white mb-2" data-i18n="secC1Title">Punct de Restaurare Automat</h3>
+          <p class="text-xs text-slate-400 leading-relaxed font-medium" data-i18n="secC1Desc">
+            Înainte de a schimba o singură cheie din registru, ZeroDrop creează un <strong>System Restore Point</strong> complet. În plus, ai buton de <em>Revenire la Setările din Fabrică</em> cu 1-click.
+          </p>
+        </div>
+
+        <!-- Card 2: False Positive Explained -->
+        <div class="p-6 rounded-xl bg-cardDark border border-cardBorder">
+          <div class="text-2xl mb-3">⚡</div>
+          <h3 class="text-base font-bold text-white mb-2" data-i18n="secC2Title">De ce avertizează Defender?</h3>
+          <p class="text-xs text-slate-400 leading-relaxed font-medium" data-i18n="secC2Desc">
+            Modificăm timere kernel și oprim telemetria adâncă — acțiuni de nivel administrator pe care softurile uzuale nu le fac. Este un <strong>fals pozitiv normal</strong>. ZeroDrop este curat și nu conține malware.
+          </p>
+        </div>
+
+        <!-- Card 3: Anti-Cheat Safe -->
+        <div class="p-6 rounded-xl bg-cardDark border border-cardBorder">
+          <div class="text-2xl mb-3">✅</div>
+          <h3 class="text-base font-bold text-white mb-2" data-i18n="secC3Title">Conform cu Toate Anti-Cheat-urile</h3>
+          <p class="text-xs text-slate-400 leading-relaxed font-medium" data-i18n="secC3Desc">
+            Nu injectăm DLL-uri, nu atingem memoria jocurilor și nu modificăm fișiere de joc. Este 100% sigur pe <strong>Riot Vanguard, Easy Anti-Cheat, BattlEye și VAC</strong>. Zero risc de ban.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING TIERS -->
+  <section id="pricing" class="py-20 border-t border-cardBorder bg-[#0A0D15]">
+    <div class="max-w-5xl mx-auto px-4">
+      <div class="text-center mb-14">
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-white" data-i18n="pricingTitle">Alege versiunea potrivită pentru tine</h2>
+        <p class="text-slate-400 text-sm mt-2 font-medium" data-i18n="pricingSubtitle">Poți testa curățarea gratuit chiar acum sau deblochezi pachetul PRO pentru latență minimă.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- 1: FREE DEMO -->
+        <div class="p-6 rounded-2xl bg-cardDark border border-cardBorder flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center mb-3">
+              <span class="text-xs font-mono font-bold text-slate-400 uppercase" data-i18n="tier1Badge">DEMO GRATUIT</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">0 €</span>
+            </div>
+            <div class="text-3xl font-black text-white font-mono mb-2">0 €</div>
+            <p class="text-xs text-slate-400 mb-6" data-i18n="freeDesc">Fără card, fără înregistrare. Descarci și rulezi.</p>
+
+            <ul class="space-y-3 text-xs text-slate-300 mb-8 font-medium">
+              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> <span data-i18n="freeF1">Curățare fișiere temporare &amp; junk</span></li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> <span data-i18n="freeF2">Flush memorie RAM inactivă (Standby)</span></li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> <span data-i18n="freeF3">Curățare cache DirectX D3D</span></li>
+              <li class="flex items-center gap-2 text-slate-500"><span>✕</span> <span data-i18n="freeF4">Latență mouse 0.5ms (Doar PRO)</span></li>
+              <li class="flex items-center gap-2 text-slate-500"><span>✕</span> <span data-i18n="freeF5">Debloat avansat telemetrie (Doar PRO)</span></li>
+            </ul>
+          </div>
+
+          <button onclick="handleDownloadOrMobile()" class="w-full py-3 rounded-xl bg-[#172030] hover:bg-[#202C42] border border-cardBorder text-white font-bold text-xs uppercase tracking-wider transition" data-i18n="freeBtn">
+            Descarcă Demo Gratuit
+          </button>
+        </div>
+
+        <!-- 2: STANDARD PRO -->
+        <div class="p-6 rounded-2xl bg-[#0E1524] border-2 border-emerald-500 shadow-xl shadow-emerald-500/10 flex flex-col justify-between relative">
+          <div class="absolute -top-3 right-6 px-3 py-0.5 rounded-full bg-emerald-500 text-black text-[10px] font-black uppercase tracking-wider" data-i18n="tier2Tag">
+            CEL MAI ALES
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center mb-3">
+              <span class="text-xs font-mono font-bold text-emerald-400 uppercase" data-i18n="tier2Badge">ZERODROP STANDARD</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300" data-i18n="tier2Sub">1 PC PE VIAȚĂ</span>
+            </div>
+            <div class="flex items-baseline gap-2 mb-2">
+              <span class="text-3xl font-black text-white font-mono">14.99 €</span>
+              <span class="text-xs text-slate-500 line-through font-mono">24.99 €</span>
+            </div>
+            <p class="text-xs text-slate-400 mb-6" data-i18n="stdDesc">Plată unică. Licență valabilă pe viață.</p>
+
+            <ul class="space-y-3 text-xs text-slate-200 mb-8 font-medium">
+              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> <strong data-i18n="stdF1">Toate funcțiile din Demo Gratuit</strong></li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> <span data-i18n="stdF2">Latență mouse 0.5ms &amp; Raw Input 1:1</span></li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> <span data-i18n="stdF3">Oprire telemetrie &amp; procese de fundal</span></li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> <span data-i18n="stdF4">Optimizare conexiune TCP (Nagle Off)</span></li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> <span data-i18n="stdF5">Performanță maximă procesor (fără throttling)</span></li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> <span data-i18n="stdF6">Creare automată Restore Point de siguranță</span></li>
+            </ul>
+          </div>
+
+          <button onclick="buyPro('Standard')" class="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-black text-xs uppercase tracking-wider transition shadow-lg shadow-emerald-500/20" data-i18n="stdBtn">
+            Cumpără Standard (14.99 €)
+          </button>
+        </div>
+
+        <!-- 3: VIP SUITE -->
+        <div class="p-6 rounded-2xl bg-cardDark border border-cardBorder flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center mb-3">
+              <span class="text-xs font-mono font-bold text-purple-400 uppercase" data-i18n="tier3Badge">ZERODROP VIP SUITE</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/20 text-purple-300" data-i18n="tier3Sub">1 PC + SUPORT</span>
+            </div>
+            <div class="flex items-baseline gap-2 mb-2">
+              <span class="text-3xl font-black text-white font-mono">19.99 €</span>
+              <span class="text-xs text-slate-500 line-through font-mono">29.99 €</span>
+            </div>
+            <p class="text-xs text-slate-400 mb-6" data-i18n="vipDesc">Pentru cei care vor suport prioritar și actualizări viitoare.</p>
+
+            <ul class="space-y-3 text-xs text-slate-300 mb-8 font-medium">
+              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> <strong data-i18n="vipF1">Tot ce include pachetul Standard</strong></li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> <span data-i18n="vipF2">Resetare gratuită de HWID când schimbi PC-ul</span></li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> <span data-i18n="vipF3">Curățare avansată Shader Cache GPU NVIDIA/AMD</span></li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> <span data-i18n="vipF4">Ghid video secret de display &amp; setări OBS</span></li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> <span data-i18n="vipF5">Suport prioritar 1-la-1 pe Discord</span></li>
+            </ul>
+          </div>
+
+          <button onclick="buyPro('VIP')" class="w-full py-3 rounded-xl bg-[#1F1835] hover:bg-[#2A2048] border border-purple-500/40 text-purple-200 font-bold text-xs uppercase tracking-wider transition" data-i18n="vipBtn">
+            Cumpără VIP Suite (19.99 €)
+          </button>
+        </div>
+
+      </div>
+
+      <div class="mt-10 text-center text-xs text-slate-400 font-medium flex flex-wrap items-center justify-center gap-4">
+        <span data-i18n="trustCard">🔒 Plăți securizate cu Card, Apple Pay sau Google Pay</span>
+        <span>•</span>
+        <span data-i18n="trustEmail">Licența ajunge instant pe email</span>
+        <span>•</span>
+        <span data-i18n="trustRefund">Garanție de returnare 14 zile</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE FAQ SECTION -->
+  <section id="faq" class="py-20 border-t border-cardBorder bg-[#080B13]">
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="text-center mb-14">
+        <span class="text-emerald-400 font-mono text-xs font-bold uppercase tracking-widest" data-i18n="faqTag">RĂSPUNSURI CLARE</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-white mt-1" data-i18n="faqTitle">Întrebări Frecvente (FAQ)</h2>
+        <p class="text-slate-400 text-sm mt-2 font-medium" data-i18n="faqSubtitle">Tot ce trebuie să știi înainte să începi optimizarea.</p>
+      </div>
+
+      <div class="space-y-4">
+
+        <!-- FAQ Item 1 -->
+        <div class="rounded-xl bg-cardDark border border-cardBorder overflow-hidden">
+          <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex justify-between items-center text-sm font-bold text-white hover:text-emerald-400 transition">
+            <span data-i18n="faqQ1">Cum funcționează programul ZeroDrop?</span>
+            <span class="text-emerald-400 text-lg transition-transform faq-icon">+</span>
+          </button>
+          <div class="px-5 pb-5 text-xs text-slate-400 leading-relaxed font-medium hidden faq-ans" data-i18n="faqA1">
+            ZeroDrop este o aplicație executabilă nativă (.exe) care elimină complet necesitatea de a lăsa străini pe PC-ul tău prin AnyDesk. Softul analizează configurația Windows, creează automat un Restore Point și aplică toate reglajele de timere, registru și rețea la un singur click. Durează doar câteva secunde.
+          </div>
+        </div>
+
+        <!-- FAQ Item 2 -->
+        <div class="rounded-xl bg-cardDark border border-cardBorder overflow-hidden">
+          <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex justify-between items-center text-sm font-bold text-white hover:text-emerald-400 transition">
+            <span data-i18n="faqQ2">Trebuie să dau restart după optimizare?</span>
+            <span class="text-emerald-400 text-lg transition-transform faq-icon">+</span>
+          </button>
+          <div class="px-5 pb-5 text-xs text-slate-400 leading-relaxed font-medium hidden faq-ans" data-i18n="faqA2">
+            Da, un restart complet este obligatoriu. Nicio modificare de registru de sistem sau serviciu Windows nu este încărcată de kernel până când calculatorul nu este repornit. După restart, timerele 0.5ms și profilul de rețea sunt 100% active.
+          </div>
+        </div>
+
+        <!-- FAQ Item 3 -->
+        <div class="rounded-xl bg-cardDark border border-cardBorder overflow-hidden">
+          <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex justify-between items-center text-sm font-bold text-white hover:text-emerald-400 transition">
+            <span data-i18n="faqQ3">Licența este permanentă sau pe abonament?</span>
+            <span class="text-emerald-400 text-lg transition-transform faq-icon">+</span>
+          </button>
+          <div class="px-5 pb-5 text-xs text-slate-400 leading-relaxed font-medium hidden faq-ans" data-i18n="faqA3">
+            Toate licențele ZeroDrop (Standard și VIP) sunt <strong>Lifetime (pe viață)</strong>. Nu există taxe lunare sau reînnoiri ascunse. Poți rula softul ori de câte ori reinstalezi Windows-ul pe același PC.
+          </div>
+        </div>
+
+        <!-- FAQ Item 4 -->
+        <div class="rounded-xl bg-cardDark border border-cardBorder overflow-hidden">
+          <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex justify-between items-center text-sm font-bold text-white hover:text-emerald-400 transition">
+            <span data-i18n="faqQ4">Ce fac dacă îmi schimb calculatorul sau componentele?</span>
+            <span class="text-emerald-400 text-lg transition-transform faq-icon">+</span>
+          </button>
+          <div class="px-5 pb-5 text-xs text-slate-400 leading-relaxed font-medium hidden faq-ans" data-i18n="faqA4">
+            Licențele sunt legate de HWID-ul (Hardware ID) plăcii de bază pentru a preveni partajarea pe net. Dacă schimbi componentele sau îți cumperi un PC nou, poți reseta HWID-ul gratuit o dată la 30 de zile direct prin API sau cerând ajutor pe Discord.
+          </div>
+        </div>
+
+        <!-- FAQ Item 5 -->
+        <div class="rounded-xl bg-cardDark border border-cardBorder overflow-hidden">
+          <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex justify-between items-center text-sm font-bold text-white hover:text-emerald-400 transition">
+            <span data-i18n="faqQ5">Pot reveni la setările inițiale din fabrică dacă doresc?</span>
+            <span class="text-emerald-400 text-lg transition-transform faq-icon">+</span>
+          </button>
+          <div class="px-5 pb-5 text-xs text-slate-400 leading-relaxed font-medium hidden faq-ans" data-i18n="faqA5">
+            Absolut. Aplicația ZeroDrop are integrat un modul de <em>Reset to Factory Defaults</em> care readuce valorile BCD, timerele și rețeaua la starea standard Microsoft, plus Punctul de Restaurare Windows generat automat.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- DISCORD & COMMUNITY SECTION -->
+  <section class="py-16 border-t border-cardBorder bg-[#0A0D15]">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <div class="p-8 rounded-2xl bg-gradient-to-b from-[#101726] to-[#0A0E18] border border-cardBorder">
+        <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[#5865F2]/20 border border-[#5865F2]/40 text-[#5865F2] mb-4">
+          <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.893.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+        </div>
+        <h3 class="text-xl sm:text-2xl font-black text-white mb-2" data-i18n="discTitle">Alătură-te Comunității ZeroDrop</h3>
+        <p class="text-xs sm:text-sm text-slate-400 max-w-xl mx-auto mb-6 leading-relaxed font-medium" data-i18n="discDesc">
+          Peste 1.500 de gameri activi. Asistență tehnică rapidă, ghiduri de optimizare a jocurilor și recenzii reale de la clienți. După cumpărare, îți revendici automat gradul VIP pe server!
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="https://discord.gg/6nZgnvdzgg" target="_blank" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-[#5865F2] hover:bg-[#4752C4] text-white font-extrabold text-xs uppercase tracking-wider transition shadow-lg shadow-[#5865F2]/20 flex items-center justify-center gap-2">
+            <span data-i18n="discBtn">Intră pe Serverul de Discord</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-10 border-t border-cardBorder bg-[#06080D] text-xs text-slate-500">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="text-center md:text-left space-y-1">
+        <div data-i18n="fCopy">
+          © 2026 ZeroDrop Software. Toate drepturile rezervate.
+        </div>
+        <p class="text-[11px] text-slate-600">
+          Dezvoltat independent pentru performanță competitivă în jocuri.
+        </p>
+      </div>
+
+      <!-- ANPC & Legal Badges -->
+      <div class="flex items-center gap-3 flex-wrap justify-center">
+        <a href="https://reclamatiisal.anpc.ro" target="_blank" rel="noopener noreferrer" title="ANPC - Soluționarea Alternativă a Litigiilor" class="hover:opacity-90 transition transform hover:scale-[1.02]">
+          <img src="anpc-sal.svg" alt="ANPC - Soluționarea Alternativă a Litigiilor" class="h-9 w-auto">
+        </a>
+        <a href="https://anpc.ro/" target="_blank" rel="noopener noreferrer" title="Autoritatea Națională pentru Protecția Consumatorilor" class="hover:opacity-90 transition transform hover:scale-[1.02]">
+          <img src="anpc.svg" alt="Autoritatea Națională pentru Protecția Consumatorilor" class="h-9 w-auto">
+        </a>
+      </div>
+
+      <div class="flex gap-5 font-medium flex-wrap justify-center">
+        <a href="terms.html" onclick="openModal('terms'); return false;" class="hover:text-slate-300 underline" data-i18n="fTerms">Termeni și Condiții</a>
+        <a href="privacy.html" onclick="openModal('privacy'); return false;" class="hover:text-slate-300 underline" data-i18n="fPrivacy">Politica de Confidențialitate</a>
+        <a href="refund.html" onclick="openModal('refund'); return false;" class="hover:text-slate-300 underline" data-i18n="fRefund">Politica de Returnare &amp; Suport</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MOBILE SMART POPUP (TIKTOK / PHONE DETECT) -->
+  <div id="mobileModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-[#0C111D] border-2 border-emerald-500/80 rounded-2xl max-w-md w-full p-6 shadow-2xl relative text-left">
+      <button onclick="closeMobileModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-base">✕</button>
+
+      <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 font-mono text-[10px] font-bold mb-3">
+        <span data-i18n="mBadge">📱 EȘTI PE TELEFON?</span>
+      </div>
+
+      <h3 class="text-lg font-black text-white leading-tight mb-2" data-i18n="mTitle">
+        Optimizarea ZeroDrop se rulează pe calculatorul tău cu Windows.
+      </h3>
+
+      <p class="text-xs text-slate-400 leading-relaxed mb-6 font-medium" data-i18n="mDesc">
+        Poți plăti acum comod de pe telefon (Apple Pay / Google Pay) și primești licența pe email, sau îți trimiți link-ul pe WhatsApp ca să-l ai salvat când deschizi PC-ul!
+      </p>
+
+      <div class="space-y-3">
+        <!-- Option 1: WhatsApp -->
+        <a id="btnShareWhatsApp" href="#" target="_blank" class="w-full py-3 px-4 rounded-xl bg-[#25D366] hover:bg-[#20BA5A] text-black font-extrabold text-xs uppercase tracking-wider transition flex items-center justify-center gap-2">
+          <span>💬</span> <span data-i18n="mBtnWa">Trimite-ți link-ul pe WhatsApp</span>
+        </a>
+
+        <!-- Option 2: Buy from Phone -->
+        <button onclick="closeMobileModal(); buyPro('Standard');" class="w-full py-3 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-black text-xs uppercase tracking-wider transition shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2">
+          <span>💳</span> <span data-i18n="mBtnBuy">Cumpără acum (Apple Pay / Google Pay)</span>
+        </button>
+
+        <!-- Option 3: Copy Link -->
+        <button onclick="copyCurrentLink()" class="w-full py-2.5 px-4 rounded-xl bg-[#141B29] border border-cardBorder hover:border-slate-500 text-slate-300 font-bold text-xs uppercase tracking-wider transition flex items-center justify-center gap-2">
+          <span>📋</span> <span id="btnCopyText" data-i18n="mBtnCopy">Copiază link-ul site-ului</span>
+        </button>
+      </div>
+
+      <p class="text-[11px] text-slate-500 mt-4 text-center font-medium" data-i18n="mNote">
+        Licența trimisă pe email este valabilă pe viață (Lifetime) și o activezi când ajungi la PC.
+      </p>
+    </div>
+  </div>
+
+  <!-- STICKY MOBILE BOTTOM BAR (Visible only on small screens) -->
+  <div class="fixed bottom-0 inset-x-0 bg-[#0A0E18]/95 backdrop-blur-md border-t border-cardBorder p-3 flex sm:hidden items-center justify-between gap-2 z-40">
+    <div class="flex flex-col">
+      <span class="text-[10px] text-slate-400 font-mono">ZeroDrop Pro</span>
+      <span class="text-xs font-black text-emerald-400 font-mono">14.99 € Lifetime</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <button onclick="openMobileModal()" class="px-3 py-2 rounded-lg bg-[#141B29] border border-cardBorder text-slate-300 text-xs font-bold" data-i18n="mStickyShare">
+        WhatsApp
+      </button>
+      <button onclick="buyPro('Standard')" class="px-4 py-2 rounded-lg bg-emerald-500 text-black text-xs font-black uppercase tracking-wider" data-i18n="mStickyBuy">
+        Cumpără
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL LEGAL -->
+  <div id="legalModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-cardDark border border-cardBorder rounded-xl max-w-2xl w-full max-h-[80vh] flex flex-col p-6 shadow-2xl">
+      <div class="flex items-center justify-between pb-4 border-b border-cardBorder mb-4">
+        <h3 id="modalTitle" class="text-base font-bold text-white">Document Legal</h3>
+        <button onclick="closeModal()" class="text-slate-400 hover:text-white text-sm px-2 py-1">✕</button>
+      </div>
+      <div id="modalContent" class="overflow-y-auto text-xs text-slate-300 leading-relaxed space-y-4 pr-2">
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="fixed top-5 right-5 z-50 bg-emerald-500 text-black px-4 py-2 rounded-lg font-bold text-xs shadow-2xl transition-opacity duration-300 opacity-0 pointer-events-none">
+    Link copiat în clipboard!
+  </div>
+
+  <script>
+    const translations = {
+      ro: {
+        topBar: "⚡ OFERTĂ LANSARE: -40% REDUCERE LA LICENȚELE PRO",
+        topFree: "🎁 Modul DEMO Gratuit este inclus",
+        navGames: "Jocuri Suportate",
+        navPreview: "Aplicația ZeroDrop",
+        navFeatures: "Ce Rezolvă",
+        navCompare: "Comparație FPS",
+        navSecurity: "Siguranță & Restore",
+        navFaq: "FAQ",
+        navCta: "Descarcă / Cumpără",
+        heroBadge: "⚡ VERSIUNEA NOUĂ 1.3 DISPONIBILĂ PENTRU GAMING",
+        heroTitle: "FPS Stabil & Fără Dropuri în Lupte.<br><span class=\"text-emerald-400\">Latență Mouse & Răspuns Instant.</span>",
+        heroDesc: "Windows vine din fabrică plin de procese de fundal care îți agăță jocul exact când tragi cu arma. <strong>ZeroDrop</strong> elimină căderile de cadre, reduce latența la mouse la 0.5ms și deblochează toată puterea procesorului tău.",
+        heroCtaPro: "🚀 Deblochează Pachetul PRO (14.99 €)",
+        heroCtaFree: "🎁 Descarcă DEMO Gratuit (0 €)",
+        mockHardware: "🟢 HARDWARE CONECTAT: 0.500 ms LOCKED",
+        mockB1Title: "Latență Mouse & Răspuns",
+        mockB1Desc: "Timere calibrate, accelerare mouse dezactivată, GameDVR oprit.",
+        mockB1Raw: "Raw Input 1:1",
+        mockActive: "ACTIV",
+        mockB2Title: "Performanță Procesor",
+        mockB2Desc: "Plan Ultimate activat, core-parking oprit, fără throttling în joc.",
+        mockB2Freq: "Frecvență Stabilă",
+        mockB3Title: "Optimizare Conexiune",
+        mockB3Desc: "Algoritmul Nagle oprit, flush cache DNS, fără spikes de latență.",
+        mockRestore: "🛡️ Restore Point: Creat automat înainte de modificări",
+        gamesTag: "TESTATE PE JOCURI REALE",
+        gamesMainTitle: "Unde se simte cel mai mult diferența?",
+        gamesMainSubtitle: "Nu promitem cifre inventate. Iată exact ce rezolvă ZeroDrop în titlurile competitive:",
+        gFiveMDesc: "Elimină agățatul la încărcarea hărții și dropurile mari de FPS când conduci cu viteză prin zone populate sau în schimburi de focuri. Flush-ul de Standby RAM previne umplerea memoriei după 2 ore de joc.",
+        gFiveMFix: "Texture stream stabil & fără crash",
+        gCS2Desc: "Testat etalon pe harta <strong>FPS Benchmark Dust2</strong>. Elimina micro-stuttering-ul când tragi prima salvă cu AK-47 sau când intri în smoke. Timerele 0.5ms oferă tragere la țintă fără nicio întârziere perceptibilă.",
+        gCS2Fix: "Sub-tick curat & Raw Input 1:1",
+        gFortDesc: "Gata cu scăderea la 40 FPS când cobori din Battle Bus sau când construiești rapid în box-fights. Planul de alimentare Ultimate forțează frecvența procesorului să rămână blocată la maxim.",
+        gFortFix: "Zero freeze la edituri rapide",
+        gValDesc: "Elimină conflictele dintre serviciile Windows și driverul Riot Vanguard. Optimizează procesorul pentru timpi de reacție la peek fără nicio abatere de cadre.",
+        gValFix: "100% sigur pe anti-cheat",
+        gWarzoneDesc: "Rezolvă problema clasică a Warzone-ului: consumul excesiv de VRAM și Standby RAM care sufocă Windows-ul după 3 meciuri consecutive.",
+        gWarzoneFix: "Flush automat memorie inactivă",
+        gApexDesc: "Bypass la algoritmul Nagle din stiva de rețea. Pachetele mici de poziție și gloanțe sunt trimise fără buffering, stabilizând ping-ul pe serverele din Germania/UK.",
+        gApexFix: "Elimină ping spikes & packet drop",
+        featMainTitle: "Cum transformă ZeroDrop calculatorul tău",
+        featMainSubtitle: "Modificări gândite special pentru jucătorii de CS2, Fortnite, FiveM, Valorant și Warzone.",
+        p1Title: "Latență Mouse & Răspuns Instant",
+        p1Desc: "Forțează timerele hardware Windows la 0.5ms (în loc de 1.0 sau 15ms), elimină accelerarea ascunsă din sistem și oprește GameDVR. Când apeși click sau miști mouse-ul, glonțul pleacă instant fără întârziere.",
+        p2Title: "Curățare Windows & Oprirea Proceselor din Fundal",
+        p2Desc: "Oprește peste 30 de servicii inutile de telemetrie Microsoft (DiagTrack, Cortana, indexare de fundal) care se bat pe nucleele procesorului tău în mijlocul meciului. Eliberează între 500 MB și 1.5 GB de RAM.",
+        p3Title: "Optimizare Conexiune & Fără Ping",
+        p3Desc: "Dezactivează algoritmul Nagle din Windows, care ține pe loc pachetele mici de rețea. Datele tale pleacă direct către serverul de joc, eliminând căderile de conexiune și spikes-urile de ping.",
+        p4Title: "Performanță Maximă a Procesorului",
+        p4Desc: "Deblochează profilul ascuns Ultimate Performance și oprește core-parking-ul. Procesorul tău nu își mai scade frecvența în timpul acțiunii intense, prevenind căderile bruște de cadre.",
+        compTitle: "FPS Stabil & Fără Dropuri în Lupte",
+        compSubtitle: "Vezi diferența reală de stabilitate pe un PC mediu (Ryzen 5 + RTX 3060 în CS2 & Fortnite):",
+        compBeforeTitle: "WINDOWS STANDARD (FABRICĂ)",
+        compAvgFps: "Cadre Medii",
+        compDrops: "Căderi în Luptă (Dropuri)",
+        compDropsVal: "65 FPS (Agăța)",
+        compBeforeNote: "Când arunci o grenadă sau tragi cu arma, telemetria din Windows consumă procesorul și simți acel agățat frustrant.",
+        compAfterTitle: "ZERODROP PROFIL ACTIV",
+        compStability: "Stabilitate în Luptă",
+        compStabilityVal: "140 FPS (Linie Dreaptă)",
+        compAfterNote: "Frame-time-ul devine o linie dreaptă. Zero micro-stutter, iar mouse-ul răspunde instant la fiecare milimetru de mișcare.",
+        secTag: "100% SIGUR & REVERSIBIL",
+        secTitle: "De ce ZeroDrop este complet sigur pentru PC",
+        secSubtitle: "Nu lăsa pe nimeni să-ți umble în calculator prin AnyDesk. Ai control total și siguranță absolută.",
+        secC1Title: "Punct de Restaurare Automat",
+        secC1Desc: "Înainte de a schimba o singură cheie din registru, ZeroDrop creează un <strong>System Restore Point</strong> complet. În plus, ai buton de <em>Revenire la Setările din Fabrică</em> cu 1-click.",
+        secC2Title: "De ce avertizează Defender?",
+        secC2Desc: "Modificăm timere kernel și oprim telemetria adâncă — acțiuni de nivel administrator pe care softurile uzuale nu le fac. Este un <strong>fals pozitiv normal</strong>. ZeroDrop este curat și nu conține malware.",
+        secC3Title: "Conform cu Toate Anti-Cheat-urile",
+        secC3Desc: "Nu injectăm DLL-uri, nu atingem memoria jocurilor și nu modificăm fișiere de joc. Este 100% sigur pe <strong>Riot Vanguard, Easy Anti-Cheat, BattlEye și VAC</strong>. Zero risc de ban.",
+        pricingTitle: "Alege versiunea potrivită pentru tine",
+        pricingSubtitle: "Poți testa curățarea gratuit chiar acum sau deblochezi pachetul PRO pentru latență minimă.",
+        tier1Badge: "DEMO GRATUIT",
+        freeDesc: "Fără card, fără înregistrare. Descarci și rulezi.",
+        freeF1: "Curățare fișiere temporare & junk",
+        freeF2: "Flush memorie RAM inactivă (Standby)",
+        freeF3: "Curățare cache DirectX D3D",
+        freeF4: "Latență mouse 0.5ms (Doar PRO)",
+        freeF5: "Debloat avansat telemetrie (Doar PRO)",
+        freeBtn: "Descarcă Demo Gratuit",
+        tier2Tag: "CEL MAI ALES",
+        tier2Badge: "ZERODROP STANDARD",
+        tier2Sub: "1 PC PE VIAȚĂ",
+        stdDesc: "Plată unică. Licență valabilă pe viață.",
+        stdF1: "Toate funcțiile din Demo Gratuit",
+        stdF2: "Latență mouse 0.5ms & Raw Input 1:1",
+        stdF3: "Oprire telemetrie & procese de fundal",
+        stdF4: "Optimizare conexiune TCP (Nagle Off)",
+        stdF5: "Performanță maximă procesor (fără throttling)",
+        stdF6: "Creare automată Restore Point de siguranță",
+        stdBtn: "Cumpără Standard (14.99 €)",
+        tier3Badge: "ZERODROP VIP SUITE",
+        tier3Sub: "1 PC + SUPORT",
+        vipDesc: "Pentru cei care vor suport prioritar și actualizări viitoare.",
+        vipF1: "Tot ce include pachetul Standard",
+        vipF2: "Resetare gratuită de HWID când schimbi PC-ul",
+        vipF3: "Curățare avansată Shader Cache GPU NVIDIA/AMD",
+        vipF4: "Ghid video secret de display & setări OBS",
+        vipF5: "Suport prioritar 1-la-1 pe Discord",
+        vipBtn: "Cumpără VIP Suite (19.99 €)",
+        trustCard: "🔒 Plăți securizate cu Card, Apple Pay sau Google Pay",
+        trustEmail: "Licența ajunge instant pe email",
+        trustRefund: "Garanție de returnare 14 zile",
+        faqTag: "RĂSPUNSURI CLARE",
+        faqTitle: "Întrebări Frecvente (FAQ)",
+        faqSubtitle: "Tot ce trebuie să știi înainte să începi optimizarea.",
+        faqQ1: "Cum funcționează programul ZeroDrop?",
+        faqA1: "ZeroDrop este o aplicație executabilă nativă (.exe) care elimină complet necesitatea de a lăsa străini pe PC-ul tău prin AnyDesk. Softul analizează configurația Windows, creează automat un Restore Point și aplică toate reglajele de timere, registru și rețea la un singur click. Durează doar câteva secunde.",
+        faqQ2: "Trebuie să dau restart după optimizare?",
+        faqA2: "Da, un restart complet este obligatoriu. Nicio modificare de registru de sistem sau serviciu Windows nu este încărcată de kernel până când calculatorul nu este repornit. După restart, timerele 0.5ms și profilul de rețea sunt 100% active.",
+        faqQ3: "Licența este permanentă sau pe abonament?",
+        faqA3: "Toate licențele ZeroDrop (Standard și VIP) sunt <strong>Lifetime (pe viață)</strong>. Nu există taxe lunare sau reînnoiri ascunse. Poți rula softul ori de câte ori reinstalezi Windows-ul pe același PC.",
+        faqQ4: "Ce fac dacă îmi schimb calculatorul sau componentele?",
+        faqA4: "Licențele sunt legate de HWID-ul (Hardware ID) plăcii de bază pentru a preveni partajarea pe net. Dacă schimbi componentele sau îți cumperi un PC nou, poți reseta HWID-ul gratuit o dată la 30 de zile direct prin API sau cerând ajutor pe Discord.",
+        faqQ5: "Pot reveni la setările inițiale din fabrică dacă doresc?",
+        faqA5: "Absolut. Aplicația ZeroDrop are integrat un modul de <em>Reset to Factory Defaults</em> care readuce valorile BCD, timerele și rețeaua la starea standard Microsoft, plus Punctul de Restaurare Windows generat automat.",
+        discTitle: "Alătură-te Comunității ZeroDrop",
+        discDesc: "Peste 1.500 de gameri activi. Asistență tehnică rapidă, ghiduri de optimizare a jocurilor și recenzii reale de la clienți. După cumpărare, îți revendici automat gradul VIP pe server!",
+        discBtn: "Intră pe Serverul de Discord",
+        mBadge: "📱 EȘTI PE TELEFON?",
+        mTitle: "Optimizarea ZeroDrop se rulează pe calculatorul tău cu Windows.",
+        mDesc: "Poți plăti acum comod de pe telefon (Apple Pay / Google Pay) și primești licența pe email, sau îți trimiți link-ul pe WhatsApp ca să-l ai salvat când deschizi PC-ul!",
+        mBtnWa: "Trimite-ți link-ul pe WhatsApp",
+        mBtnBuy: "Cumpără acum (Apple Pay / Google Pay)",
+        mBtnCopy: "Copiază link-ul site-ului",
+        mNote: "Licența trimisă pe email este valabilă pe viață (Lifetime) și o activezi când ajungi la PC.",
+        mStickyShare: "WhatsApp",
+        mStickyBuy: "Cumpără",
+        fCopy: "© 2026 ZeroDrop Software. Toate drepturile rezervate.",
+        fTerms: "Termeni și Condiții",
+        fPrivacy: "Politica de Confidențialitate",
+        fRefund: "Politica de Returnare & Suport"
+      },
+      en: {
+        topBar: "⚡ LAUNCH SPECIAL: -40% OFF PRO LIFETIME LICENSES",
+        topFree: "🎁 Free Demo Mode Included",
+        navGames: "Supported Games",
+        navPreview: "ZeroDrop App",
+        navFeatures: "Features",
+        navCompare: "FPS Benchmarks",
+        navSecurity: "Security & Restore",
+        navFaq: "FAQ",
+        navCta: "Download / Buy",
+        heroBadge: "⚡ NEW v1.3 RELEASE FOR GAMING",
+        heroTitle: "Stable FPS & Zero Frame Drops in Fights.<br><span class=\"text-emerald-400\">Instant Mouse Latency & Pure Response.</span>",
+        heroDesc: "Stock Windows installs ship loaded with background tasks that cause stutter when shooting or fighting. <strong>ZeroDrop</strong> eliminates frame drops, locks 0.5ms mouse latency, and unleashes full CPU power.",
+        heroCtaPro: "🚀 Unlock PRO Suite (14.99 €)",
+        heroCtaFree: "🎁 Download Free DEMO (0 €)",
+        mockHardware: "🟢 HARDWARE DETECTED: 0.500 ms LOCKED",
+        mockB1Title: "Mouse Latency & Response",
+        mockB1Desc: "Calibrated timers, mouse acceleration off, GameDVR disabled.",
+        mockB1Raw: "Raw Input 1:1",
+        mockActive: "ACTIVE",
+        mockB2Title: "CPU Performance",
+        mockB2Desc: "Ultimate scheme active, core-parking stopped, zero throttling.",
+        mockB2Freq: "Stable Frequency",
+        mockB3Title: "Connection Tuning",
+        mockB3Desc: "Nagle's algorithm off, DNS flush, zero latency spikes.",
+        mockRestore: "🛡️ Restore Point: Created automatically before tuning",
+        gamesTag: "PROVEN IN REAL GAMES",
+        gamesMainTitle: "Where Do You Feel the Difference?",
+        gamesMainSubtitle: "No fabricated metrics. Here is exactly what ZeroDrop addresses in competitive titles:",
+        gFiveMDesc: "Eliminates stutter during asset streaming and high-speed vehicle cruising through high-density servers. Standby RAM flush prevents memory saturation after extended 2+ hour sessions.",
+        gFiveMFix: "Stable texture streaming & zero crashes",
+        gCS2Desc: "Benchmarked on the official <strong>FPS Benchmark Dust2</strong> map. Wipes out micro-stutter when spraying or entering smoke. 0.5ms timers deliver instantaneous click registration with AWP and rifles.",
+        gCS2Fix: "Crisp sub-tick & 1:1 Raw Input",
+        gFortDesc: "No more drops down to 40 FPS upon landing from the Battle Bus or editing structures during endgame box-fights. Ultimate power governor locks CPU frequencies at maximum clock.",
+        gFortFix: "Zero freeze during rapid editing",
+        gValDesc: "Eliminates background Windows scheduler clashes with the Riot Vanguard kernel driver. Optimizes CPU thread priority for instant peek reaction times.",
+        gValFix: "100% Anti-Cheat compliant",
+        gWarzoneDesc: "Resolves Warzone's notorious memory leakage where Standby RAM and VRAM cache suffocate Windows after 3 consecutive matches.",
+        gWarzoneFix: "Automated inactive RAM purge",
+        gApexDesc: "Bypasses Nagle's TCP packet coalescing algorithm. Small player positional and firing packets leave without buffer delay, minimizing jitter to European servers.",
+        gApexFix: "Eliminates ping spikes & packet drops",
+        featMainTitle: "How ZeroDrop Upgrades Your PC",
+        featMainSubtitle: "Engineered specifically for CS2, Fortnite, FiveM, Valorant, and Warzone players.",
+        p1Title: "Instant Mouse Latency & Timers",
+        p1Desc: "Locks Windows hardware timers to 0.5ms (instead of 1.0ms or 15ms), eliminates hidden mouse acceleration curves, and disables GameDVR. When you click, bullets fire with zero input lag.",
+        p2Title: "Windows Debloat & Background Task Shutdown",
+        p2Desc: "Stops over 30 telemetry and tracking services (DiagTrack, Cortana indexing, CEIP) competing for CPU cores in the middle of gunfights. Frees 500 MB to 1.5 GB of RAM.",
+        p3Title: "Ping Optimization & Connection Stability",
+        p3Desc: "Disables Nagle's algorithm (RFC 896) that delays small TCP gaming packets. Data packets leave instantly to game servers, preventing jitter and ping spikes.",
+        p4Title: "Maximum CPU Power & No Throttling",
+        p4Desc: "Unlocks the hidden Ultimate Performance ACPI profile and prevents core parking. Your processor maintains top clock frequencies throughout long gaming sessions.",
+        compTitle: "Stable FPS & Zero Drops in Fights",
+        compSubtitle: "Real-world benchmark difference on a standard rig (Ryzen 5 + RTX 3060 in CS2 & Fortnite):",
+        compBeforeTitle: "STOCK WINDOWS (DEFAULT)",
+        compAvgFps: "Average Framerate",
+        compDrops: "Drops in Gunfights",
+        compDropsVal: "65 FPS (Stuttering)",
+        compBeforeNote: "When smoke or explosions appear, Windows telemetry context-switches CPU cycles, creating noticeable micro-stutter.",
+        compAfterTitle: "ZERODROP ACTIVE PROFILE",
+        compStability: "Stability in Gunfights",
+        compStabilityVal: "140 FPS (Flatline)",
+        compAfterNote: "Frametime graph becomes a flat line. Zero micro-stutter and 1:1 raw mouse tracking at every DPI.",
+        secTag: "100% SAFE & REVERSIBLE",
+        secTitle: "Why ZeroDrop is 100% Safe for Your PC",
+        secSubtitle: "Never let anonymous technicians access your personal PC via AnyDesk. You get absolute local control.",
+        secC1Title: "Automated Restore Point",
+        secC1Desc: "Before modifying a single registry key, ZeroDrop generates an official Windows <strong>System Restore Point</strong>. Plus, a 1-click <em>Reset to Factory Defaults</em> button is built right in.",
+        secC2Title: "Why Does Defender Trigger?",
+        secC2Desc: "We calibrate hardware timers and halt deep telemetry — administrative actions standard user apps never touch. It is a <strong>routine false positive</strong>. ZeroDrop contains zero malware or miners.",
+        secC3Title: "Anti-Cheat Compliant",
+        secC3Desc: "We never inject DLLs or hook into running game processes. Tested and 100% compliant with <strong>Riot Vanguard, Easy Anti-Cheat, BattlEye, and VAC</strong>. Zero ban risk.",
+        pricingTitle: "Choose your edition",
+        pricingSubtitle: "Test the free junk & RAM cleaner right now or unlock the full PRO package for minimum latency.",
+        tier1Badge: "FREE DEMO",
+        freeDesc: "No credit card, no sign-up. Download and run.",
+        freeF1: "Temporary & junk file cleanup",
+        freeF2: "Standby RAM memory flush",
+        freeF3: "DirectX D3D cache cleaner",
+        freeF4: "0.5ms Mouse Latency (PRO Only)",
+        freeF5: "Advanced telemetry debloat (PRO Only)",
+        freeBtn: "Download Free Demo",
+        tier2Tag: "MOST POPULAR",
+        tier2Badge: "ZERODROP STANDARD",
+        tier2Sub: "1 PC LIFETIME",
+        stdDesc: "One-time payment. Lifetime license.",
+        stdF1: "All Free Demo features included",
+        stdF2: "0.5ms Mouse Latency & 1:1 Raw Input",
+        stdF3: "Disable telemetry & background tasks",
+        stdF4: "TCP Connection Tuning (Nagle Off)",
+        stdF5: "Maximum CPU performance (no throttling)",
+        stdF6: "Automated Safety Restore Point creation",
+        stdBtn: "Get Standard (14.99 €)",
+        tier3Badge: "ZERODROP VIP SUITE",
+        tier3Sub: "1 PC + PRIORITY",
+        vipDesc: "For players wanting priority support, HWID migrations and overclock guides.",
+        vipF1: "Everything in the Standard package",
+        vipF2: "Free HWID migration when changing PC",
+        vipF3: "Advanced NVIDIA/AMD GPU Shader Cache Purge",
+        vipF4: "Secret Low-Latency Display & OBS video guide",
+        vipF5: "Priority 1-on-1 Discord VIP support",
+        vipBtn: "Get VIP Suite (19.99 €)",
+        trustCard: "🔒 Secure Payments with Card, Apple Pay or Google Pay",
+        trustEmail: "Instant license delivery via email",
+        trustRefund: "14-Day Money Back Guarantee",
+        faqTag: "CLEAR ANSWERS",
+        faqTitle: "Frequently Asked Questions (FAQ)",
+        faqSubtitle: "Everything you need to know before tuning your rig.",
+        faqQ1: "How does the ZeroDrop app work?",
+        faqA1: "ZeroDrop is a native standalone executable (.exe) that eliminates the danger of allowing strangers remote access via AnyDesk. It creates a Windows Restore Point and applies timer, registry, and network optimizations in a single click. It takes under 5 seconds.",
+        faqQ2: "Do I need to restart my PC after tuning?",
+        faqA2: "Yes, a clean restart is required. Windows kernel services and deep TCP profiles only reload upon system reboot. After restart, 0.5ms timers and low-latency network profiles are permanently active.",
+        faqQ3: "Is this a one-time purchase or a subscription?",
+        faqA3: "All ZeroDrop licenses (Standard and VIP) are <strong>Lifetime</strong>. There are zero recurring monthly charges. You can re-apply optimizations anytime you reinstall Windows on that PC.",
+        faqQ4: "What happens if I upgrade components or change PC?",
+        faqA4: "Licenses are locked to the motherboard's anonymous HWID hash to prevent unauthorized sharing. If you change hardware, you can reset your HWID once every 30 days via our automated API or Discord support.",
+        faqQ5: "Can I revert back to default Windows settings?",
+        faqA5: "Yes. ZeroDrop features an integrated <em>Reset to Factory Defaults</em> routine that restores standard Windows timer and BCD parameters, accompanied by the automated System Restore Point.",
+        discTitle: "Join the ZeroDrop Community",
+        discDesc: "Over 1,500 competitive gamers. Rapid technical support, tuning tips, and verified benchmarks. Claim your exclusive Discord VIP role automatically after purchase!",
+        discBtn: "Join Discord Community",
+        mBadge: "📱 ON MOBILE?",
+        mTitle: "ZeroDrop runs locally on your Windows PC.",
+        mDesc: "You can purchase your license conveniently from your phone using Apple Pay or Google Pay and receive it instantly on email, or share the link to WhatsApp to open it on your PC!",
+        mBtnWa: "Send Link to WhatsApp",
+        mBtnBuy: "Buy Now (Apple Pay / Google Pay)",
+        mBtnCopy: "Copy Website Link",
+        mNote: "Licenses delivered to your email are Lifetime valid and activate when you start your PC.",
+        mStickyShare: "WhatsApp",
+        mStickyBuy: "Buy Now",
+        fCopy: "© 2026 ZeroDrop Software. All rights reserved.",
+        fTerms: "Terms of Service",
+        fPrivacy: "Privacy Policy",
+        fRefund: "Refund & Support"
+      }
+    };
+
+    let currentLang = 'en';
+
+    function setLang(lang) {
+      currentLang = lang;
+      const dict = translations[lang];
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) {
+          el.innerHTML = dict[key];
+        }
+      });
+
+      if (lang === 'ro') {
+        document.getElementById('btnLangRo').className = 'px-2 py-0.5 text-xs font-bold rounded bg-emerald-500 text-black';
+        document.getElementById('btnLangEn').className = 'px-2 py-0.5 text-xs font-bold rounded text-slate-400 hover:text-white';
+        document.documentElement.lang = 'ro';
+      } else {
+        document.getElementById('btnLangEn').className = 'px-2 py-0.5 text-xs font-bold rounded bg-emerald-500 text-black';
+        document.getElementById('btnLangRo').className = 'px-2 py-0.5 text-xs font-bold rounded text-slate-400 hover:text-white';
+        document.documentElement.lang = 'en';
+      }
+      updateWhatsAppLink();
+    }
+
+    function toggleFaq(btn) {
+      const parent = btn.parentElement;
+      const ans = parent.querySelector('.faq-ans');
+      const icon = parent.querySelector('.faq-icon');
+      if (ans.classList.contains('hidden')) {
+        ans.classList.remove('hidden');
+        icon.innerText = '−';
+        icon.classList.add('text-red-400');
+      } else {
+        ans.classList.add('hidden');
+        icon.innerText = '+';
+        icon.classList.remove('text-red-400');
+      }
+    }
+
+    function isMobileDevice() {
+      return (window.innerWidth < 768) || /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+    }
+
+    function handleDownloadOrMobile() {
+      if (isMobileDevice()) {
+        openMobileModal();
+      } else {
+        downloadDemo();
+      }
+    }
+
+    function openMobileModal() {
+      updateWhatsAppLink();
+      document.getElementById('mobileModal').classList.remove('hidden');
+    }
+
+    function closeMobileModal() {
+      document.getElementById('mobileModal').classList.add('hidden');
+    }
+
+    function updateWhatsAppLink() {
+      const currentUrl = window.location.href;
+      const msg = currentLang === 'ro' 
+        ? `Salut! Salvează link-ul ăsta pentru când intri pe PC să descarci ZeroDrop (FPS boost & latență 0.5ms): ${currentUrl}`
+        : `Hey! Save this link for when you are on PC to get ZeroDrop (FPS boost & 0.5ms latency): ${currentUrl}`;
+      document.getElementById('btnShareWhatsApp').href = `https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`;
+    }
+
+    function copyCurrentLink() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        showToast(currentLang === 'ro' ? "Link copiat în clipboard!" : "Link copied to clipboard!");
+        document.getElementById('btnCopyText').innerText = currentLang === 'ro' ? "Copiat!" : "Copied!";
+        setTimeout(() => {
+          document.getElementById('btnCopyText').innerText = translations[currentLang].mBtnCopy;
+        }, 2000);
+      });
+    }
+
+    function showToast(text) {
+      const toast = document.getElementById('toast');
+      toast.innerText = text;
+      toast.classList.remove('opacity-0', 'pointer-events-none');
+      toast.classList.add('opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('opacity-100');
+        toast.classList.add('opacity-0', 'pointer-events-none');
+      }, 2500);
+    }
+
+    // Live Gumroad product checkout URLs
+    const CHECKOUT_URLS = {
+      Standard: 'https://zerodrop.gumroad.com/l/nsryqw',
+      VIP: 'https://zerodrop.gumroad.com/l/qhemj'
+    };
+
+    function downloadDemo() {
+      const link = document.createElement('a');
+      link.href = 'ZeroDrop.exe';
+      link.download = 'ZeroDrop.exe';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      copyToast(currentLang === 'ro' 
+        ? "Descărcarea ZeroDrop.exe a început! Executabil curat, fără instalare." 
+        : "ZeroDrop.exe download started! Portable, no install required.");
+    }
+
+    function buyPro(tier) {
+      const checkoutUrl = CHECKOUT_URLS[tier];
+      if (checkoutUrl && checkoutUrl.startsWith('http')) {
+        window.location.href = checkoutUrl;
+      } else {
+        alert(currentLang === 'ro'
+          ? `Redirecționare către Checkout securizat pentru licența ZeroDrop ${tier}...\n\nDupă plată, cheia ta de licență unică (HWID Lock) este trimisă instant pe email!`
+          : `Redirecting to secure Checkout for ZeroDrop ${tier} license...\n\nAfter payment, your unique HWID-locked license key is emailed instantly!`);
+      }
+    }
+
+    // Live Countdown Timer
+    let secondsLeft = 2 * 3600 + 44 * 60 + 18;
+    setInterval(() => {
+      if (secondsLeft > 0) secondsLeft--;
+      const h = String(Math.floor(secondsLeft / 3600)).padStart(2, '0');
+      const m = String(Math.floor((secondsLeft % 3600) / 60)).padStart(2, '0');
+      const s = String(secondsLeft % 60).padStart(2, '0');
+      const el = document.getElementById('countdownTimer');
+      if (el) el.innerText = `${h}:${m}:${s}`;
+    }, 1000);
+
+    // Modal legal documents bilingv
+    const modalDocs = {
+      ro: {
+        terms: {
+          title: "Termeni și Condiții ZeroDrop",
+          content: `
+            <p><strong>1. Acord de Licențiere:</strong> Fiecare licență achiziționată vă oferă dreptul de a activa ZeroDrop pe un singur calculator legat prin Hardware ID (HWID). Partajarea cheii cu terțe persoane duce la blocarea automată a licenței.</p>
+            <p><strong>2. Upgrade Componente:</strong> Dacă vă schimbați procesorul sau placa de bază, puteți solicita gratuit o resetare de HWID o dată la 30 de zile.</p>
+            <p><strong>3. Conformitate Anti-Cheat:</strong> ZeroDrop modifică doar parametrii nativi ai Windows-ului și nu atinge fișierele sau memoria jocurilor. Este 100% sigur și conform cu Vanguard, Easy Anti-Cheat, BattlEye și VAC.</p>
+          `
+        },
+        privacy: {
+          title: "Politica de Confidențialitate ZeroDrop",
+          content: `
+            <p><strong>1. Minimizarea Datelor:</strong> Colectăm exclusiv un hash criptografic SHA-256 anonim al componentelor PC-ului pentru validarea licenței. Nu avem acces la seria fizică a componentelor.</p>
+            <p><strong>2. Fără Telemetrie:</strong> ZeroDrop nu înregistrează tastele, fișierele personale sau activitatea în jocuri. De fapt, programul oprește telemetria Microsoft.</p>
+            <p><strong>3. Plăți Securizate:</strong> Plățile sunt procesate prin Lemon Squeezy și Stripe ca Merchant of Record. Datele bancare nu ajung niciodată pe serverele noastre.</p>
+          `
+        },
+        refund: {
+          title: "Politica de Returnare & Suport",
+          content: `
+            <p><strong>1. Garanție 14 Zile:</strong> Dacă ZeroDrop nu îmbunătățește stabilitatea cadrelor pe calculatorul tău și echipa noastră de suport nu poate rezolva problema, primești banii înapoi integral în primele 14 zile.</p>
+            <p><strong>2. Suport Tehnic &amp; Rambursare:</strong> Deschide un tichet privat pe canalul <code>#create-ticket</code> de pe serverul nostru oficial de Discord (<a href="https://discord.gg/6nZgnvdzgg" target="_blank" class="text-emerald-400 underline font-bold">discord.gg/6nZgnvdzgg</a>) pentru asistență prioritară și procesarea returnării în 24-48h.</p>
+          `
+        }
+      },
+      en: {
+        terms: {
+          title: "ZeroDrop Terms of Service",
+          content: `
+            <p><strong>1. License Agreement:</strong> Each purchased license key permits activation on a single Windows PC bound to its Hardware ID (HWID). Key redistribution or unauthorized sharing causes automatic license revocation.</p>
+            <p><strong>2. Component Upgrades:</strong> If you change motherboards or processors, an automated HWID reset may be requested once every 30 days free of charge.</p>
+            <p><strong>3. Anti-Cheat Compliance:</strong> ZeroDrop alters native Windows operating system parameters without injecting DLLs or touching game memory. It is 100% safe and compliant with Vanguard, Easy Anti-Cheat, BattlEye, and VAC.</p>
+          `
+        },
+        privacy: {
+          title: "ZeroDrop Privacy Policy",
+          content: `
+            <p><strong>1. Data Minimization:</strong> We collect exclusively an anonymous SHA-256 cryptographic hash of your hardware profile for license validation. Raw hardware serials are never transmitted.</p>
+            <p><strong>2. No Telemetry:</strong> ZeroDrop does not record keystrokes, personal files, or game history. In fact, our core software explicitly halts background Microsoft telemetry.</p>
+            <p><strong>3. Secure Checkout:</strong> Payments are processed via Lemon Squeezy and Stripe as our Merchant of Record. We never touch or store banking credentials.</p>
+          `
+        },
+        refund: {
+          title: "ZeroDrop Refund & Support Policy",
+          content: `
+            <p><strong>1. 14-Day Performance Guarantee:</strong> If ZeroDrop fails to stabilize frametime consistency on your PC and our team cannot resolve the issue, you are entitled to a full refund within 14 days of purchase.</p>
+            <p><strong>2. Dedicated Support & Refunds:</strong> Simply open a support ticket in the <code>#create-ticket</code> channel on our official Discord community (<a href="https://discord.gg/6nZgnvdzgg" target="_blank" class="text-emerald-400 underline font-bold">discord.gg/6nZgnvdzgg</a>) with your order ID for priority 24-48h processing.</p>
+          `
+        }
+      }
+    };
+
+    function openModal(doc) {
+      const modal = document.getElementById('legalModal');
+      const item = modalDocs[currentLang][doc];
+      if (item) {
+        document.getElementById('modalTitle').innerText = item.title;
+        document.getElementById('modalContent').innerHTML = item.content;
+        modal.classList.remove('hidden');
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('legalModal').classList.add('hidden');
+    }
+
+    // Initialize language in English by default and detect mobile devices
+    window.addEventListener('DOMContentLoaded', () => {
+      setLang('en');
+      updateWhatsAppLink();
+      if (isMobileDevice() && !sessionStorage.getItem('mobilePopupShown')) {
+        setTimeout(() => {
+          openMobileModal();
+          sessionStorage.setItem('mobilePopupShown', 'true');
+        }, 3500);
+      }
+    });
+  </script>
+</body>
+</html>
