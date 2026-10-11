@@ -553,7 +553,7 @@
         <span>•</span>
         <span data-i18n="trustEmail">Licența ajunge instant pe email</span>
         <span>•</span>
-        <span data-i18n="trustRefund">Garanție de returnare 14 zile</span>
+        <span data-i18n="trustRefund">⚡ Livrare digitală instantanee • Licență Lifetime</span>
       </div>
     </div>
   </section>
@@ -621,6 +621,17 @@
           </button>
           <div class="px-5 pb-5 text-xs text-slate-400 leading-relaxed font-medium hidden faq-ans" data-i18n="faqA5">
             Absolut. Aplicația ZeroDrop are integrat un modul de <em>Reset to Factory Defaults</em> care readuce valorile BCD, timerele și rețeaua la starea standard Microsoft, plus Punctul de Restaurare Windows generat automat.
+          </div>
+        </div>
+
+        <!-- FAQ Item 6: Politica de Retur Digital -->
+        <div class="rounded-xl bg-cardDark border border-cardBorder overflow-hidden">
+          <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex justify-between items-center text-sm font-bold text-white hover:text-emerald-400 transition">
+            <span data-i18n="faqQ6">Se pot returna banii după cumpărare?</span>
+            <span class="text-emerald-400 text-lg transition-transform faq-icon">+</span>
+          </button>
+          <div class="px-5 pb-5 text-xs text-slate-400 leading-relaxed font-medium hidden faq-ans" data-i18n="faqA6">
+            Conform legislației europene și românești privind produsele digitale (OUG 34/2014 Art. 16 lit. m), conținutul digital livrat instant (cheile software unice legate de HWID) este exceptat de la dreptul de retragere, toate vânzările fiind finale odată ce licența a fost livrată. Pentru a testa compatibilitatea pe PC-ul tău înainte de a plăti, ai la dispoziție versiunea gratuită Demo.
           </div>
         </div>
 
@@ -856,7 +867,7 @@
         vipBtn: "Cumpără VIP Suite (19.99 €)",
         trustCard: "🔒 Plăți securizate cu Card, Apple Pay sau Google Pay",
         trustEmail: "Licența ajunge instant pe email",
-        trustRefund: "Garanție de returnare 14 zile",
+        trustRefund: "⚡ Livrare digitală instantanee • Licență Lifetime",
         faqTag: "RĂSPUNSURI CLARE",
         faqTitle: "Întrebări Frecvente (FAQ)",
         faqSubtitle: "Tot ce trebuie să știi înainte să începi optimizarea.",
@@ -870,6 +881,8 @@
         faqA4: "Licențele sunt legate de HWID-ul (Hardware ID) plăcii de bază pentru a preveni partajarea pe net. Dacă schimbi componentele sau îți cumperi un PC nou, poți reseta HWID-ul gratuit o dată la 30 de zile direct prin API sau cerând ajutor pe Discord.",
         faqQ5: "Pot reveni la setările inițiale din fabrică dacă doresc?",
         faqA5: "Absolut. Aplicația ZeroDrop are integrat un modul de <em>Reset to Factory Defaults</em> care readuce valorile BCD, timerele și rețeaua la starea standard Microsoft, plus Punctul de Restaurare Windows generat automat.",
+        faqQ6: "Se pot returna banii după cumpărare?",
+        faqA6: "Conform legislației europene și românești privind produsele digitale (OUG 34/2014 Art. 16 lit. m), conținutul digital livrat instant (cheile software unice legate de HWID) este exceptat de la dreptul de retragere, toate vânzările fiind finale odată ce licența a fost livrată. Pentru a testa compatibilitatea pe PC-ul tău înainte de a plăti, ai la dispoziție versiunea gratuită Demo.",
         discTitle: "Alătură-te Comunității ZeroDrop",
         discDesc: "Peste 1.500 de gameri activi. Asistență tehnică rapidă, ghiduri de optimizare a jocurilor și recenzii reale de la clienți. După cumpărare, îți revendici automat gradul VIP pe server!",
         discBtn: "Intră pe Serverul de Discord",
@@ -885,7 +898,7 @@
         fCopy: "© 2026 ZeroDrop Software. Toate drepturile rezervate.",
         fTerms: "Termeni și Condiții",
         fPrivacy: "Politica de Confidențialitate",
-        fRefund: "Politica de Returnare & Suport"
+        fRefund: "Politica de Livrare & Returnare"
       },
       en: {
         topBar: "⚡ LAUNCH SPECIAL: -40% OFF PRO LIFETIME LICENSES",
@@ -990,7 +1003,7 @@
         vipBtn: "Get VIP Suite (19.99 €)",
         trustCard: "🔒 Secure Payments with Card, Apple Pay or Google Pay",
         trustEmail: "Instant license delivery via email",
-        trustRefund: "14-Day Money Back Guarantee",
+        trustRefund: "⚡ Instant Digital Delivery • Lifetime License",
         faqTag: "CLEAR ANSWERS",
         faqTitle: "Frequently Asked Questions (FAQ)",
         faqSubtitle: "Everything you need to know before tuning your rig.",
@@ -1004,6 +1017,8 @@
         faqA4: "Licenses are locked to the motherboard's anonymous HWID hash to prevent unauthorized sharing. If you change hardware, you can reset your HWID once every 30 days via our automated API or Discord support.",
         faqQ5: "Can I revert back to default Windows settings?",
         faqA5: "Yes. ZeroDrop features an integrated <em>Reset to Factory Defaults</em> routine that restores standard Windows timer and BCD parameters, accompanied by the automated System Restore Point.",
+        faqQ6: "Are software license keys refundable?",
+        faqA6: "Because ZeroDrop is digital software with instant unique cryptographic key delivery bound to your PC's hardware ID, all sales are final under EU digital goods regulations (Directive 2011/83/EU Art. 16(m)). We offer a 100% Free Demo edition so everyone can test compatibility on their PC before purchasing.",
         discTitle: "Join the ZeroDrop Community",
         discDesc: "Over 1,500 competitive gamers. Rapid technical support, tuning tips, and verified benchmarks. Claim your exclusive Discord VIP role automatically after purchase!",
         discBtn: "Join Discord Community",
@@ -1019,7 +1034,7 @@
         fCopy: "© 2026 ZeroDrop Software. All rights reserved.",
         fTerms: "Terms of Service",
         fPrivacy: "Privacy Policy",
-        fRefund: "Refund & Support"
+        fRefund: "Digital Delivery & Refund Policy"
       }
     };
 
@@ -1174,10 +1189,12 @@
           `
         },
         refund: {
-          title: "Politica de Returnare & Suport",
+          title: "Politica de Livrare Digitală & Returnare",
           content: `
-            <p><strong>1. Garanție 14 Zile:</strong> Dacă ZeroDrop nu îmbunătățește stabilitatea cadrelor pe calculatorul tău și echipa noastră de suport nu poate rezolva problema, primești banii înapoi integral în primele 14 zile.</p>
-            <p><strong>2. Suport Tehnic &amp; Rambursare:</strong> Deschide un tichet privat pe canalul <code>#create-ticket</code> de pe serverul nostru oficial de Discord (<a href="https://discord.gg/6nZgnvdzgg" target="_blank" class="text-emerald-400 underline font-bold">discord.gg/6nZgnvdzgg</a>) pentru asistență prioritară și procesarea returnării în 24-48h.</p>
+            <p><strong>1. Conținut Digital &amp; Vânzări Finale:</strong> ZeroDrop constă în software digital descărcabil și chei unice de activare generate automat și legate ireversibil de identificatorul hardware (HWID) al PC-ului cumpărătorului.</p>
+            <p><strong>2. Exceptare de la Dreptul de Retragere:</strong> Conform <strong>OUG nr. 34/2014 Art. 16 lit. m</strong> și <strong>Directivei Europene 2011/83/UE Art. 16(m)</strong>, furnizarea de conținut digital care nu este livrat pe suport material este exceptată de la dreptul legal de retragere dacă prestarea a început cu acordul prealabil expres al consumatorului. Prin finalizarea plății, cumpărătorul confirmă în mod explicit că își pierde dreptul de retragere, toate vânzările fiind finale și nerambursabile.</p>
+            <p><strong>3. Testare Gratuită (Free Demo):</strong> Pentru transparență totală, oferim versiunea Free Demo descărcabilă gratuit direct de pe site, permițând oricărui utilizator să testeze compatibilitatea software-ului pe propriul PC înainte de orice achiziție PRO.</p>
+            <p><strong>4. Asistență Tehnică &amp; Resetare HWID:</strong> În caz de dificultăți de configurare sau înlocuire a componentelor PC-ului (placă de bază / procesor), oferim asistență 1-la-1 și resetare gratuită a HWID-ului prin tichet pe serverul nostru de Discord (<a href="https://discord.gg/6nZgnvdzgg" target="_blank" class="text-emerald-400 underline font-bold">discord.gg/6nZgnvdzgg</a>).</p>
           `
         }
       },
@@ -1199,10 +1216,12 @@
           `
         },
         refund: {
-          title: "ZeroDrop Refund & Support Policy",
+          title: "Digital Products & No-Refund Policy",
           content: `
-            <p><strong>1. 14-Day Performance Guarantee:</strong> If ZeroDrop fails to stabilize frametime consistency on your PC and our team cannot resolve the issue, you are entitled to a full refund within 14 days of purchase.</p>
-            <p><strong>2. Dedicated Support & Refunds:</strong> Simply open a support ticket in the <code>#create-ticket</code> channel on our official Discord community (<a href="https://discord.gg/6nZgnvdzgg" target="_blank" class="text-emerald-400 underline font-bold">discord.gg/6nZgnvdzgg</a>) with your order ID for priority 24-48h processing.</p>
+            <p><strong>1. Digital Delivery &amp; Final Sale:</strong> ZeroDrop consists of digital software and unique cryptographic license keys generated instantly and bound to the customer's Hardware ID (HWID).</p>
+            <p><strong>2. Statutory Right of Withdrawal Exemption:</strong> In accordance with <strong>EU Directive 2011/83/EU Article 16(m)</strong> and Romanian <strong>OUG 34/2014 Article 16(m)</strong>, the supply of digital content not supplied on a tangible medium is exempt from the statutory 14-day right of withdrawal. By completing checkout, the buyer expressly consents to immediate digital delivery and acknowledges that they lose their right of withdrawal, rendering all sales final and non-refundable.</p>
+            <p><strong>3. Prior Testing with Free Demo:</strong> We provide a 100% Free Demo edition without payment or registration, enabling users to evaluate compatibility on their PC before purchasing a license key.</p>
+            <p><strong>4. Technical Support &amp; HWID Resets:</strong> We provide full 1-on-1 configuration assistance and free hardware component migrations via our Discord support desk (<a href="https://discord.gg/6nZgnvdzgg" target="_blank" class="text-emerald-400 underline font-bold">discord.gg/6nZgnvdzgg</a>).</p>
           `
         }
       }

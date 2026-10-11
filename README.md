@@ -118,7 +118,7 @@ All official legal disclosures and web pages are hosted live on GitHub Pages:
 * 💬 **Discord Community:** [https://discord.gg/6nZgnvdzgg](https://discord.gg/6nZgnvdzgg)
 * 📜 **Terms of Service:** [terms.html](terms.html) • [Web Mirror](https://zerodrop-website.github.io/zerodrop-website/terms.html)
 * 🔒 **Privacy Policy (GDPR):** [privacy.html](privacy.html) • [Web Mirror](https://zerodrop-website.github.io/zerodrop-website/privacy.html)
-* 💰 **Refund Policy (14-Day Guarantee):** [refund.html](refund.html) • [Web Mirror](https://zerodrop-website.github.io/zerodrop-website/refund.html)
+* 💰 **Digital Products & Refund Policy:** [refund.html](refund.html) • [Web Mirror](https://zerodrop-website.github.io/zerodrop-website/refund.html)
 * 📥 **ZeroDrop.exe Direct Binary:** [ZeroDrop.exe](https://github.com/zerodrop-website/zerodrop-website/raw/main/ZeroDrop.exe)
 
 ---
