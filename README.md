@@ -9,7 +9,7 @@
 
 [![Website](https://img.shields.io/badge/Website-Live_Online-10B981?style=for-the-badge&logo=googlechrome&logoColor=white)](https://zerodrop-website.github.io/zerodrop-website/)
 [![Download](https://img.shields.io/badge/Download-ZeroDrop.exe_(907_KB)-0EA5E9?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/zerodrop-website/zerodrop-website/raw/main/ZeroDrop.exe)
-[![Discord](https://img.shields.io/badge/Discord-Join_Community-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/6nZgnvdzgg)
+[![Discord](https://img.shields.io/badge/Discord-Join_Community-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/zHYMXaTpSg)
 [![Platform](https://img.shields.io/badge/Platform-Windows_10_%2F_11-6366F1?style=for-the-badge&logo=windows11&logoColor=white)](https://zerodrop-website.github.io/zerodrop-website/)
 [![Anti--Cheat](https://img.shields.io/badge/Anti--Cheat-100%25_Undetected_%26_Safe-10B981?style=for-the-badge&logo=shield&logoColor=white)](https://zerodrop-website.github.io/zerodrop-website/#security)
 [![License](https://img.shields.io/badge/License-HWID_Locked-8B5CF6?style=for-the-badge&logo=keycdn&logoColor=white)](https://zerodrop-website.github.io/zerodrop-website/#pricing)
@@ -18,7 +18,7 @@
 
 <a href="https://zerodrop-website.github.io/zerodrop-website/"><strong>🌐 Official Website</strong></a> •
 <a href="https://github.com/zerodrop-website/zerodrop-website/raw/main/ZeroDrop.exe"><strong>📥 Direct Download (ZeroDrop.exe)</strong></a> •
-<a href="https://discord.gg/6nZgnvdzgg"><strong>💬 Discord Community</strong></a> •
+<a href="https://discord.gg/zHYMXaTpSg"><strong>💬 Discord Community</strong></a> •
 <a href="#-key-features"><strong>✨ Key Features</strong></a> •
 <a href="#-benchmarks"><strong>📊 Benchmarks</strong></a> •
 <a href="#-safety--anti-cheat-compliance"><strong>🛡️ Safety & Anti-Cheat</strong></a> •
@@ -115,7 +115,7 @@ Stock Windows 10 and 11 installations ship with over 60 invisible background tel
 All official legal disclosures and web pages are hosted live on GitHub Pages:
 
 * 🌐 **Live Website:** [https://zerodrop-website.github.io/zerodrop-website/](https://zerodrop-website.github.io/zerodrop-website/)
-* 💬 **Discord Community:** [https://discord.gg/6nZgnvdzgg](https://discord.gg/6nZgnvdzgg)
+* 💬 **Discord Community:** [https://discord.gg/zHYMXaTpSg](https://discord.gg/zHYMXaTpSg)
 * 📜 **Terms of Service:** [terms.html](terms.html) • [Web Mirror](https://zerodrop-website.github.io/zerodrop-website/terms.html)
 * 🔒 **Privacy Policy (GDPR):** [privacy.html](privacy.html) • [Web Mirror](https://zerodrop-website.github.io/zerodrop-website/privacy.html)
 * 💰 **Digital Products & Refund Policy:** [refund.html](refund.html) • [Web Mirror](https://zerodrop-website.github.io/zerodrop-website/refund.html)
